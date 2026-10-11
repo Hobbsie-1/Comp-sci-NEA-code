@@ -247,8 +247,7 @@ class SearchAlgorithm():
             self.Finished = True
             return
         #Get the next cell from the stack
-        CurrentCell = self.Stack[len(self.Stack)-1]
-        self.Stack.pop()
+        CurrentCell = self.Stack.pop()
 
         #Ignore visited cells
         CellPos = (CurrentCell.XCoordinate, CurrentCell.YCoordinate)

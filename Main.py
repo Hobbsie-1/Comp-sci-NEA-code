@@ -236,6 +236,8 @@ class SearchAlgorithm():
         return adjacent #Returns the list of adjacent cells
 
     def DFSMove(self,ListOfCells):
+        if self.Finished and not self.SearchWin:
+            self.SearchWin = True
         if self.Finished:
             return
             #return is used to exit the function

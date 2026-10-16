@@ -62,7 +62,6 @@ class Cell():
         '''Decides if the walls on the north,east,south and west are on'''
         self.Wall = {'North':True,'East':True,'South':True,'West':True}
         self.Visited = False
-        self.Finish = False
    
     def DrawCells(self,Screen,CellSize):
         '''From this point the code was borrowed from https://thepythoncode.com/article/build-a-maze-game-in-python#creating-grid-cell to help me figure out how to make the player work'''
@@ -235,6 +234,7 @@ class SearchAlgorithm():
 
     def DFSMove(self,ListOfCells):
         if self.SearchWin:
+            #if the method is called when the dfs has solved the maze it will exit the function
             return
             #return is used to exit the function
         if not self.Started:
@@ -246,7 +246,6 @@ class SearchAlgorithm():
             return
         #Get the next cell from the stack
         CurrentCell = self.Stack.pop()
-
         #Ignore visited cells
         CellPos = (CurrentCell.XCoordinate, CurrentCell.YCoordinate)
         if CellPos in self.Visited:
@@ -401,7 +400,6 @@ def checkMenu():
                 UpdateScoreboard()
             if DFSRunning and search != None:
                 CurrentTime = pygame.time.get_ticks()
-                #LastDFSStep = 10000000000000
                 if CurrentTime - LastDFSStep >= DFSDelay:
                     search.DFSMove(maze.ListOfCells)
                     LastDFSStep = CurrentTime

@@ -198,7 +198,6 @@ class SearchAlgorithm():
         self.SearchWin = False
         self.Stack = []
         self.Visited = set() #Does not need to be in order to search through it
-        self.Finished = False
         self.Started = False
         self.CurrentCell = None
     def StartSearch(self,ListOfCells):
@@ -206,7 +205,6 @@ class SearchAlgorithm():
         if start != None: #If start hasn't already been set it will add the start cell to the stack of cells and say that the search has been started.
             self.Stack.append(start)
             self.Started = True
-    
     def GetAdjacentcells(self, CurrentCell, ListOfCells):
         '''Gets all the adjacent cells of the current cell by checking if the cell exists in each cardinal direction with the getcurrentcell method'''
         adjacent = []
@@ -236,9 +234,7 @@ class SearchAlgorithm():
         return adjacent #Returns the list of adjacent cells
 
     def DFSMove(self,ListOfCells):
-        if self.Finished and not self.SearchWin:
-            self.SearchWin = True
-        if self.Finished:
+        if self.SearchWin:
             return
             #return is used to exit the function
         if not self.Started:
@@ -246,7 +242,7 @@ class SearchAlgorithm():
             self.StartSearch(ListOfCells)
         if len(self.Stack) == 0:
             #If there is nothing left to search (when there are no more cells to return to)
-            self.Finished = True
+            self.SearchWin = True
             return
         #Get the next cell from the stack
         CurrentCell = self.Stack.pop()
@@ -265,7 +261,6 @@ class SearchAlgorithm():
         self.Rect = pygame.Rect(self.RealSearchX, self.RealSearchY, 31,31)
         if CurrentCell.XCoordinate == 14 and CurrentCell.YCoordinate == 14:
             self.SearchWin = True
-            self.Finished = True
             return
         else:
             AdjacentCells = self.GetAdjacentcells(CurrentCell,ListOfCells)
